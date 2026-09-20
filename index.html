@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Pernyataan Cinta 💕</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Comic Sans MS', 'Chalkboard SE', 'Arial Rounded', cursive, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(145deg, #ffe6f0 0%, #ffc0d0 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+      padding: 20px;
+      touch-action: none;
+    }
+
+    /* Strawberry dekorasi */
+    .strawberry {
+      position: absolute;
+      font-size: 2.5rem;
+      opacity: 0.7;
+      filter: drop-shadow(0 4px 6px rgba(255, 80, 120, 0.3));
+      animation: floatStraw 5s infinite ease-in-out;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    @keyframes floatStraw {
+      0% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(10deg); }
+      100% { transform: translateY(0px) rotate(0deg); }
+    }
+
+    .strawberry:nth-child(1) { top: 5%; left: 5%; animation-delay: 0s; }
+    .strawberry:nth-child(2) { top: 15%; right: 8%; animation-delay: 0.8s; font-size: 3rem; }
+    .strawberry:nth-child(3) { bottom: 10%; left: 10%; animation-delay: 1.5s; font-size: 2.2rem; }
+    .strawberry:nth-child(4) { bottom: 20%; right: 12%; animation-delay: 2.2s; font-size: 2.8rem; }
+    .strawberry:nth-child(5) { top: 40%; left: 3%; animation-delay: 0.4s; font-size: 2rem; }
+    .strawberry:nth-child(6) { bottom: 40%; right: 5%; animation-delay: 1.2s; font-size: 2.4rem; }
+
+    /* Kartu utama */
+    .card {
+      background: rgba(255, 240, 245, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 60px 60px 60px 60px / 50px 50px 50px 50px;
+      padding: 40px 30px 50px;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 20px 40px rgba(255, 100, 130, 0.3), 0 0 0 4px #fff0f5, 0 0 0 8px #ffb6c1;
+      text-align: center;
+      position: relative;
+      z-index: 10;
+      transition: all 0.3s;
+      border: 2px dashed #ff99aa;
+    }
+
+    /* Judul kartun */
+    h1 {
+      font-size: 2.2rem;
+      color: #d6336c;
+      text-shadow: 3px 3px 0 #ffe0e8, 5px 5px 0 rgba(255, 105, 180, 0.3);
+      margin-bottom: 20px;
+      letter-spacing: 2px;
+      transform: rotate(-2deg);
+      display: inline-block;
+      background: #fff0f5;
+      padding: 8px 25px;
+      border-radius: 50px;
+      box-shadow: 0 8px 0 #ff99aa;
+    }
+
+    /* Pertanyaan */
+    .question {
+      font-size: 1.8rem;
+      color: #c2185b;
+      margin: 30px 0 25px;
+      background: #ffe4ec;
+      padding: 15px 20px;
+      border-radius: 50px;
+      display: inline-block;
+      box-shadow: inset 0 -4px 0 #ffb6c1, 0 10px 15px rgba(255, 182, 193, 0.4);
+      font-weight: bold;
+      border: 3px dotted #ff99aa;
+      line-height: 1.4;
+    }
+
+    /* Tombol */
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 10px;
+    }
+
+    .btn {
+      border: none;
+      padding: 16px 28px;
+      font-size: 1.4rem;
+      font-weight: bold;
+      border-radius: 100px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 10px 0 #c2185b, 0 8px 15px rgba(194, 24, 91, 0.3);
+      background: #ffb6c1;
+      color: #6b1e3c;
+      border: 3px solid #ffffff90;
+      letter-spacing: 1px;
+      flex: 1 0 auto;
+      min-width: 120px;
+      position: relative;
+      overflow: hidden;
+      touch-action: manipulation;
+    }
+
+    .btn:active {
+      transform: translateY(5px);
+      box-shadow: 0 5px 0 #c2185b, 0 8px 15px rgba(194, 24, 91, 0.3);
+    }
+
+    .btn:disabled {
+      opacity: 0.6;
+      transform: translateY(5px);
+      box-shadow: 0 5px 0 #a15a6e;
+      pointer-events: none;
+    }
+
+    /* Warna khusus untuk tombol pilihan */
+    .btn-love {
+      background: #ff8da1;
+      box-shadow: 0 10px 0 #c2185b;
+    }
+
+    .btn-mau {
+      background: #ffb3c6;
+      box-shadow: 0 10px 0 #d6336c;
+    }
+
+    .btn-no {
+      background: #f8d7e0;
+      box-shadow: 0 10px 0 #b04b6b;
+      color: #7a2e4a;
+    }
+
+    /* Efek sentuhan jari - cahaya pink */
+    .touch-glow {
+      position: fixed;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 150, 200, 0.9) 0%, rgba(255, 105, 180, 0.5) 40%, rgba(255, 182, 193, 0) 70%);
+      pointer-events: none;
+      transform: translate(-50%, -50%) scale(1);
+      animation: touchFade 0.8s ease-out forwards;
+      z-index: 9999;
+      mix-blend-mode: screen;
+    }
+
+    @keyframes touchFade {
+      0% { opacity: 1; transform: translate(-50%, -50%) scale(0.5); }
+      100% { opacity: 0; transform: translate(-50%, -50%) scale(2.5); }
+    }
+
+    /* Hati berwarna pink yang muncul saat jawaban benar */
+    .heart-burst {
+      position: fixed;
+      pointer-events: none;
+      font-size: 2.5rem;
+      animation: heartFly 1.5s ease-out forwards;
+      z-index: 9998;
+      filter: drop-shadow(0 0 10px #ff69b4);
+      transform: translate(-50%, -50%);
+      color: #ff69b4;
+      text-shadow: 0 0 20px #ffb6c1, 0 0 40px #ff69b4;
+    }
+
+    @keyframes heartFly {
+      0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(0.5) rotate(0deg);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(calc(-50% + var(--tx, 0px)), calc(-50% + var(--ty, -200px))) scale(1.8) rotate(var(--rot, 20deg));
+      }
+    }
+
+    /* Teks footer */
+    .footer {
+      margin-top: 40px;
+      font-size: 1rem;
+      color: #b34e6b;
+      background: rgba(255, 220, 230, 0.7);
+      padding: 8px 20px;
+      border-radius: 50px;
+      display: inline-block;
+      backdrop-filter: blur(4px);
+      border: 2px solid #ffb6c1;
+      font-weight: bold;
+      letter-spacing: 1px;
+      box-shadow: 0 5px 0 #ff99aa;
+    }
+
+    /* Pesan sukses */
+    .success-message {
+      font-size: 1.8rem;
+      color: #d6336c;
+      background: #fff0f5;
+      padding: 20px;
+      border-radius: 40px;
+      margin: 10px 0;
+      border: 4px dashed #ffb6c1;
+      animation: pop 0.5s ease;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    /* Responsif */
+    @media (max-width: 480px) {
+      h1 { font-size: 1.8rem; }
+      .question { font-size: 1.5rem; }
+      .btn { font-size: 1.2rem; padding: 14px 20px; min-width: 100px; }
+      .card { padding: 30px 20px 40px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Strawberry dekorasi -->
+  <div class="strawberry">🍓</div>
+  <div class="strawberry">🍓</div>
+  <div class="strawberry">🍓</div>
+  <div class="strawberry">🍓</div>
+  <div class="strawberry">🍓</div>
+  <div class="strawberry">🍓</div>
+
+  <div class="card" id="card">
+    <h1>💖 Cinta Kita 💖</h1>
+    <div id="questionArea">
+      <!-- Pertanyaan akan diisi oleh JavaScript -->
+    </div>
+    <div class="btn-group" id="buttonGroup">
+      <!-- Tombol akan diisi oleh JavaScript -->
+    </div>
+    <div class="footer">⚡ Power By @biscuitMD ⚡</div>
+  </div>
+
+  <script>
+    (function() {
+      // Data pertanyaan dan jawaban
+      const pertanyaan1 = {
+        teks: "Kamu cinta aku nda?",
+        jawaban: [
+          { label: "Cinta banget", value: "cinta_banget", type: "love" },
+          { label: "Engga", value: "engga", type: "no" },
+          { label: "Jijik", value: "jijik", type: "no" }
+        ]
+      };
+
+      const pertanyaan2 = {
+        teks: "Kamu mau nda jadi pacar akuw?",
+        jawaban: [
+          { label: "Mau banget", value: "mau_banget", type: "love" },
+          { label: "Engga la", value: "engga_la", type: "no" },
+          { label: "Najis banget", value: "najis_banget", type: "no" }
+        ]
+      };
+
+      // State
+      let currentStep = 0; // 0: pertanyaan 1, 1: pertanyaan 2, 2: selesai
+      let sudahCintaBanget = false; // apakah user memilih cinta banget di pertanyaan 1
+
+      const questionArea = document.getElementById('questionArea');
+      const buttonGroup = document.getElementById('buttonGroup');
+      const card = document.getElementById('card');
+
+      // Fungsi untuk menampilkan efek sentuhan (cahaya pink)
+      function showTouchEffect(e) {
+        // Dapatkan koordinat sentuhan atau klik
+        let x, y;
+        if (e.touches) {
+          x = e.touches[0].clientX;
+          y = e.touches[0].clientY;
+        } else {
+          x = e.clientX;
+          y = e.clientY;
+        }
+
+        const glow = document.createElement('div');
+        glow.className = 'touch-glow';
+        glow.style.left = x + 'px';
+        glow.style.top = y + 'px';
+        document.body.appendChild(glow);
+
+        // Hapus setelah animasi selesai
+        setTimeout(() => {
+          glow.remove();
+        }, 800);
+      }
+
+      // Fungsi untuk menampilkan banyak hati pink
+      function spawnHearts(count = 30, originX = null, originY = null) {
+        const centerX = originX || window.innerWidth / 2;
+        const centerY = originY || window.innerHeight / 2;
+
+        for (let i = 0; i < count; i++) {
+          const heart = document.createElement('div');
+          heart.className = 'heart-burst';
+          // Variasi emoji hati
+          const hearts = ['❤️', '💖', '💗', '💓', '💕', '💘', '💝', '🌸', '💮'];
+          heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+
+          // Posisi awal di sekitar titik origin
+          const angle = Math.random() * Math.PI * 2;
+          const distance = Math.random() * 80 + 20;
+          const startX = centerX + Math.cos(angle) * distance;
+          const startY = centerY + Math.sin(angle) * distance;
+
+          heart.style.left = startX + 'px';
+          heart.style.top = startY + 'px';
+          heart.style.fontSize = (Math.random() * 2 + 1.5) + 'rem';
+          heart.style.color = '#ff69b4';
+
+          // Variasi arah terbang
+          const tx = (Math.random() - 0.5) * 400;
+          const ty = (Math.random() - 0.8) * 400 - 100;
+          const rot = (Math.random() - 0.5) * 80;
+
+          heart.style.setProperty('--tx', tx + 'px');
+          heart.style.setProperty('--ty', ty + 'px');
+          heart.style.setProperty('--rot', rot + 'deg');
+
+          // Animasi durasi acak
+          heart.style.animationDuration = (Math.random() * 1 + 1) + 's';
+
+          document.body.appendChild(heart);
+
+          // Hapus setelah animasi selesai
+          setTimeout(() => {
+            heart.remove();
+          }, 1600);
+        }
+      }
+
+      // Fungsi untuk menampilkan pertanyaan berdasarkan step
+      function renderQuestion() {
+        // Bersihkan
+        questionArea.innerHTML = '';
+        buttonGroup.innerHTML = '';
+
+        if (currentStep === 0) {
+          // Pertanyaan 1
+          const q = document.createElement('div');
+          q.className = 'question';
+          q.textContent = pertanyaan1.teks;
+          questionArea.appendChild(q);
+
+          pertanyaan1.jawaban.forEach(jawab => {
+            const btn = document.createElement('button');
+            btn.className = 'btn ' + (jawab.type === 'love' ? 'btn-love' : 'btn-no');
+            btn.textContent = jawab.label;
+            btn.dataset.value = jawab.value;
+            btn.dataset.type = jawab.type;
+            btn.addEventListener('click', (e) => {
+              e.stopPropagation();
+              handleAnswer(jawab, e);
+            });
+            buttonGroup.appendChild(btn);
+          });
+        } 
+        else if (currentStep === 1) {
+          // Pertanyaan 2
+          const q = document.createElement('div');
+          q.className = 'question';
+          q.textContent = pertanyaan2.teks;
+          questionArea.appendChild(q);
+
+          pertanyaan2.jawaban.forEach(jawab => {
+            const btn = document.createElement('button');
+            btn.className = 'btn ' + (jawab.type === 'love' ? 'btn-mau' : 'btn-no');
+            btn.textContent = jawab.label;
+            btn.dataset.value = jawab.value;
+            btn.dataset.type = jawab.type;
+            btn.addEventListener('click', (e) => {
+              e.stopPropagation();
+              handleAnswer(jawab, e);
+            });
+            buttonGroup.appendChild(btn);
+          });
+        } 
+        else if (currentStep === 2) {
+          // Selesai - tampilkan pesan sukses
+          const successDiv = document.createElement('div');
+          successDiv.className = 'success-message';
+          successDiv.innerHTML = '💕 Yeay! Aku sayang kamu! 💕<br>❤️ Kamu resmi jadi pacarku ❤️';
+          questionArea.appendChild(successDiv);
+          // Tidak ada tombol
+        }
+      }
+
+      // Handler jawaban
+      function handleAnswer(jawab, event) {
+        // Efek sentuhan
+        showTouchEffect(event);
+
+        // Jika jawaban adalah "Cinta banget" (pertanyaan 1)
+        if (currentStep === 0 && jawab.value === 'cinta_banget') {
+          sudahCintaBanget = true;
+          // Spawn banyak hati
+          const rect = event.target.getBoundingClientRect();
+          const centerX = rect.left + rect.width / 2;
+          const centerY = rect.top + rect.height / 2;
+          spawnHearts(45, centerX, centerY);
+          // Lanjut ke pertanyaan 2 setelah delay singkat
+          setTimeout(() => {
+            currentStep = 1;
+            renderQuestion();
+          }, 600);
+        } 
+        // Jika jawaban "Mau banget" (pertanyaan 2)
+        else if (currentStep === 1 && jawab.value === 'mau_banget') {
+          // Spawn lebih banyak hati
+          const rect = event.target.getBoundingClientRect();
+          const centerX = rect.left + rect.width / 2;
+          const centerY = rect.top + rect.height / 2;
+          spawnHearts(70, centerX, centerY);
+          
+          // Lanjut ke step selesai
+          setTimeout(() => {
+            currentStep = 2;
+            renderQuestion();
+            // Tambahan hati dari tengah layar
+            setTimeout(() => {
+              spawnHearts(40, window.innerWidth / 2, window.innerHeight / 2);
+            }, 200);
+          }, 400);
+        } 
+        // Jika jawaban negatif pada pertanyaan 1
+        else if (currentStep === 0 && (jawab.value === 'engga' || jawab.value === 'jijik')) {
+          // Efek getar kartu sebagai "penolakan"
+          card.style.transform = 'translateX(-10px)';
+          setTimeout(() => { card.style.transform = 'translateX(10px)'; }, 100);
+          setTimeout(() => { card.style.transform = 'translateX(0)'; }, 200);
+          
+          // Tetap di pertanyaan 1, tapi beri efek sedikit
+          // Tidak spawn hearts
+        } 
+        // Jika jawaban negatif pada pertanyaan 2
+        else if (currentStep === 1 && (jawab.value === 'engga_la' || jawab.value === 'najis_banget')) {
+          // Efek getar
+          card.style.transform = 'translateX(-10px)';
+          setTimeout(() => { card.style.transform = 'translateX(10px)'; }, 100);
+          setTimeout(() => { card.style.transform = 'translateX(0)'; }, 200);
+          
+          // Tetap di pertanyaan 2
+        }
+      }
+
+      // Inisialisasi: render pertanyaan pertama
+      renderQuestion();
+
+      // Efek sentuhan global (setiap sentuhan/klik di mana pun)
+      document.addEventListener('touchstart', (e) => {
+        // Hanya jika bukan di tombol (agar tidak dobel dengan event tombol)
+        if (!e.target.closest('.btn')) {
+          showTouchEffect(e);
+        }
+      }, { passive: true });
+
+      document.addEventListener('mousedown', (e) => {
+        if (!e.target.closest('.btn')) {
+          showTouchEffect(e);
+        }
+      });
+
+      // Mencegah zoom pada double tap di mobile
+      document.addEventListener('dblclick', (e) => {
+        e.preventDefault();
+      }, { passive: false });
+
+    })();
+  </script>
+</body>
+</html>
